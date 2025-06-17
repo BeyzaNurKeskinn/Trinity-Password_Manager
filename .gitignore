@@ -1,0 +1,13 @@
+.env
+# Derleme çıktıları
+backend/target/
+frontend/node_modules/
+frontend/dist/
+# IDE dosyaları
+.idea/
+*.iml
+# Docker ile ilgili
+docker-compose.override.yml
+# Log ve geçici dosyalar
+*.log
+/temp/
