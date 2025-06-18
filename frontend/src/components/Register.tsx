@@ -11,7 +11,7 @@ const Register: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,13 +20,34 @@ const Register: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const validateForm = () => {
+    const newErrors: string[] = [];
+    if (formData.username.length < 3 || formData.username.length > 20) {
+      newErrors.push("Kullanıcı adı 3-20 karakter olmalı.");
+    }
+    if (formData.phone.length < 10 || formData.phone.length > 15) {
+      newErrors.push("Telefon numarası 10-15 karakter olmalı.");
+    }
+    if (formData.password.length < 8) {
+      newErrors.push("Şifre en az 8 karakter olmalı.");
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.push("Şifreler eşleşmiyor.");
+    }
+    if (!formData.email.includes("@")) {
+      newErrors.push("Geçerli bir e-posta adresi girin.");
+    }
+    return newErrors;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setErrors([]);
     setLoading(true);
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Şifreler eşleşmiyor");
+    const clientErrors = validateForm();
+    if (clientErrors.length > 0) {
+      setErrors(clientErrors);
       setLoading(false);
       return;
     }
@@ -35,7 +56,14 @@ const Register: React.FC = () => {
       await register(formData);
       navigate("/login");
     } catch (err: any) {
-      setError(err.message || "Kayıt sırasında bir hata oluştu.");
+      console.error("Hata detayları:", err.message, err);
+      if (err.message === "Ağ hatası: Sunucuya bağlanılamadı.") {
+        setErrors(["Daha sonra tekrar deneyiniz."]);
+      } else if (err.message.includes(";")) {
+        setErrors(err.message.split(";"));
+      } else {
+        setErrors([err.message || "Kayıt sırasında bir hata oluştu."]);
+      }
     } finally {
       setLoading(false);
     }
@@ -43,10 +71,9 @@ const Register: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-end relative overflow-hidden">
-      {/* Arka plan görseli ve gradient overlay */}
+      {/* Arka plan görseli */}
       <div className="absolute inset-0 w-full h-full">
-        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover" />
-        
+        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover filter-none brightness-100 contrast-100" />
       </div>
 
       <div className="w-full max-w-xl relative z-20 px-8 mr-32">
@@ -70,6 +97,15 @@ const Register: React.FC = () => {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-black via-red-900 to-black rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient"></div>
           
           <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 animate-fade-in">
+            {errors.length > 0 && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 animate-fade-in">
+                <ul className="list-disc list-inside">
+                  {errors.map((err, index) => (
+                    <li key={index}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <div className="relative">
@@ -125,7 +161,7 @@ const Register: React.FC = () => {
                   />
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                 </div>
@@ -170,12 +206,6 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 p-4 rounded-xl">
-                  <p className="text-red-200 text-sm">{error}</p>
-                </div>
-              )}
 
               <button
                 type="submit"

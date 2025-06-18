@@ -32,7 +32,7 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
     username: "",
     password: "",
   });
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setErrors([]);
     setLoading(true);
 
     try {
@@ -70,10 +70,19 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
       } else if (role === "USER") {
         navigate("/user/dashboard");
       } else {
-        setError("Bilinmeyen kullanıcı rolü");
+        setErrors(["Bilinmeyen kullanıcı rolü"]);
       }
     } catch (err: any) {
-      setError(err.message || "Giriş sırasında bir hata oluştu.");
+      console.error("Hata detayları:", err.message, err); // Hata ayıklama için
+      if (err.message === "Kullanıcı Adı Veya Şifreniz Yanlış, Tekrar Girin!") {
+        setErrors(["Kullanıcı Adı Veya Şifreniz Yanlış, Tekrar Girin!"]);
+      } else if (err.message === "Ağ hatası: Sunucuya bağlanılamadı.") {
+        setErrors(["Daha sonra tekrar deneyiniz."]);
+      } else if (err.message === "Yetkisiz erişim: Lütfen tekrar giriş yapın.") {
+        setErrors(["Oturumunuz geçersiz. Lütfen tekrar giriş yapın."]);
+      } else {
+        setErrors([err.message || "Giriş sırasında bir hata oluştu."]);
+      }
     } finally {
       setLoading(false);
     }
@@ -81,10 +90,9 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-end relative overflow-hidden">
-      {/* Arka plan görseli ve gradient overlay */}
+      {/* Arka plan görseli */}
       <div className="absolute inset-0 w-full h-full">
-        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover" />
-     
+        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover filter-none brightness-100 contrast-100" />
       </div>
 
       <div className="w-full max-w-xl relative z-20 px-8 mr-32">
@@ -108,6 +116,15 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-black via-red-900 to-black rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient"></div>
           
           <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
+            {errors.length > 0 && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 animate-fade-in">
+                <ul className="list-disc list-inside">
+                  {errors.map((err, index) => (
+                    <li key={index}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <div className="relative">
@@ -147,12 +164,6 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
                   </div>
                 </div>
               </div>
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 p-4 rounded-xl">
-                  <p className="text-red-200 text-sm">{error}</p>
-                </div>
-              )}
 
               <button
                 type="submit"

@@ -4,24 +4,53 @@ import { useNavigate } from "react-router-dom";
 import passwordBg from '../assets/password-bg.jpg';
 
 const ForgotPassword: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [input, setInput] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
+  const [success, setSuccess] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const validateInput = () => {
+    const newErrors: string[] = [];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmail = input.includes("@");
+    if (isEmail && !emailRegex.test(input)) {
+      newErrors.push("Geçerli bir e-posta adresi girin.");
+    } else if (!isEmail && (input.length < 10 || input.length > 15)) {
+      newErrors.push("Telefon numarası 10-15 karakter olmalı.");
+    }
+    if (!input) {
+      newErrors.push("E-posta veya telefon numarası gerekli.");
+    }
+    return newErrors;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(null);
+    setErrors([]);
+    setSuccess([]);
     setLoading(true);
 
+    const clientErrors = validateInput();
+    if (clientErrors.length > 0) {
+      setErrors(clientErrors);
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await forgotPassword(email);
-      setSuccess(response);
+      const response = await forgotPassword(input);
+      setSuccess([response || "Şifre sıfırlama kodu gönderildi."]);
       setTimeout(() => navigate("/reset-password"), 3000);
     } catch (err: any) {
-      setError(err.message || "Şifre sıfırlama kodu gönderilemedi.");
+      console.error("Hata detayları:", err.message, err);
+      if (err.message === "Ağ hatası: Sunucuya bağlanılamadı.") {
+        setErrors(["Daha sonra tekrar deneyiniz."]);
+      } else if (err.message.includes(";")) {
+        setErrors(err.message.split(";"));
+      } else {
+        setErrors([err.message || "Şifre sıfırlama kodu gönderilemedi."]);
+      }
     } finally {
       setLoading(false);
     }
@@ -29,10 +58,9 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-end relative overflow-hidden">
-      {/* Arka plan görseli ve gradient overlay */}
+      {/* Arka plan görseli */}
       <div className="absolute inset-0 w-full h-full">
-        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover" />
-        
+        <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover filter-none brightness-100 contrast-100" />
       </div>
 
       <div className="w-full max-w-xl relative z-20 px-8 mr-32">
@@ -56,16 +84,34 @@ const ForgotPassword: React.FC = () => {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-black via-red-900 to-black rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient"></div>
           
           <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 animate-fade-in">
+            {errors.length > 0 && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 animate-fade-in">
+                <ul className="list-disc list-inside">
+                  {errors.map((err, index) => (
+                    <li key={index}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {success.length > 0 && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 animate-fade-in">
+                <ul className="list-disc list-inside">
+                  {success.map((msg, index) => (
+                    <li key={index}>{msg}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <div className="relative">
                   <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    id="input"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                     className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300"
-                    placeholder="E-posta adresiniz"
+                    placeholder="E-posta veya telefon numarası"
                     required
                   />
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -75,18 +121,6 @@ const ForgotPassword: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 p-4 rounded-xl">
-                  <p className="text-red-200 text-sm">{error}</p>
-                </div>
-              )}
-
-              {success && (
-                <div className="bg-green-500/20 border border-green-500/50 p-4 rounded-xl">
-                  <p className="text-green-200 text-sm">{success}</p>
-                </div>
-              )}
 
               <button
                 type="submit"
