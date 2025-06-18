@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC<{ username: string; profilePicture: string | null }> = ({ username, profilePicture }) => {
   const initial = username.charAt(0).toUpperCase();
   const navigate = useNavigate();
 
-  // Profil resmi prop'unun değişimini izle
-  useEffect(() => {
-    console.log("Navbar received profilePicture:", profilePicture);
-  }, [profilePicture]);
-
+ 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");

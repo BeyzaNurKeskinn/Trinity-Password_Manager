@@ -84,7 +84,7 @@ const Login: React.FC<LoginProps> = ({ updateUser }) => {
       {/* Arka plan görseli ve gradient overlay */}
       <div className="absolute inset-0 w-full h-full">
         <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70"></div>
+     
       </div>
 
       <div className="w-full max-w-xl relative z-20 px-8 mr-32">

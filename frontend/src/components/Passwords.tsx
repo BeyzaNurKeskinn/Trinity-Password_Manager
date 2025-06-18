@@ -105,7 +105,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("Sunucudan gelen şifreler:", response.data);
+       
         // Mapping: featured -> isFeatured
         const mappedPasswords = response.data.map((p: any) => ({
           ...p,
@@ -376,9 +376,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
     }
   };
 
-  useEffect(() => {
-    console.log("Passwords state güncellendi:", passwords);
-  }, [passwords]);
+
 
   const verifyCodeAndProceed = async () => {
     try {

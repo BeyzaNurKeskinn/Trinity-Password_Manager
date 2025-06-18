@@ -116,7 +116,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
               headers: { Authorization: `Bearer ${token}` },
             }),
           ]);
-          console.log("Featured Passwords Response:", featuredResponse.data); // Log ekle
+          
           setData({
             username,
             mostViewedPasswords: mostViewedResponse.data,

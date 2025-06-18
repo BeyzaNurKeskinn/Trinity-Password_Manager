@@ -35,7 +35,6 @@ const AppContent: React.FC = () => {
       if (userData.profilePicture !== undefined) {
         newUser.profilePicture = userData.profilePicture;
       }
-      console.log("Updated user state:", newUser); // State güncellendiğinde log ekle
       return newUser;
     });
   }, []);
@@ -47,11 +46,6 @@ const AppContent: React.FC = () => {
       return newUser;
     });
   }, []);
-
-  // Profil resmi değiştiğinde log ekleyerek kontrol et
-  useEffect(() => {
-    console.log("Profile picture changed in App:", user.profilePicture);
-  }, [user.profilePicture]);
 
   useEffect(() => {
     const fetchUserData = async () => {

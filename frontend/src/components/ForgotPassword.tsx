@@ -19,9 +19,9 @@ const ForgotPassword: React.FC = () => {
     try {
       const response = await forgotPassword(email);
       setSuccess(response);
-      setTimeout(() => navigate("/login"), 3000);
+      setTimeout(() => navigate("/reset-password"), 3000);
     } catch (err: any) {
-      setError(err.message || "Şifre sıfırlama bağlantısı gönderilemedi.");
+      setError(err.message || "Şifre sıfırlama kodu gönderilemedi.");
     } finally {
       setLoading(false);
     }
@@ -32,7 +32,7 @@ const ForgotPassword: React.FC = () => {
       {/* Arka plan görseli ve gradient overlay */}
       <div className="absolute inset-0 w-full h-full">
         <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70"></div>
+        
       </div>
 
       <div className="w-full max-w-xl relative z-20 px-8 mr-32">
@@ -46,8 +46,8 @@ const ForgotPassword: React.FC = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 via-white/20 to-red-500/20 blur-sm"></div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold mb-6 text-gray-900 animate-fade-in">Şifremi Unuttum</h1>
-          <p className="text-gray-300">Şifre sıfırlama bağlantısı alın</p>
+          <h1 className="text-3xl font-bold mb-6 text-gray-300 animate-fade-in">Şifremi Unuttum</h1>
+          <p className="text-gray-300">Şifre sıfırlama kodu alın</p>
         </div>
 
         {/* Form container */}
@@ -104,7 +104,7 @@ const ForgotPassword: React.FC = () => {
                     Yükleniyor...
                   </div>
                 ) : (
-                  "Şifre Sıfırlama Bağlantısı Gönder"
+                  "Şifre Sıfırlama Kodu Gönder"
                 )}
               </button>
             </form>
