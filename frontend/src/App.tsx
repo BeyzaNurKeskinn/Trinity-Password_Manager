@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
-import Account from "./components/Account";
+
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
@@ -11,6 +11,8 @@ import CategoryManagement from "./components/CategoryManagement";
 import UserManagement from "./components/UserManagement";
 import Passwords from "./components/Passwords";
 import Navbar from "./components/Navbar";
+import Account from "./components/Account";
+
 
 interface UserInfo {
   id?: number;

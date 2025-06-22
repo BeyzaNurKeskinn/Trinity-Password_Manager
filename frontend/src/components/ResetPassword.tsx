@@ -65,24 +65,25 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-end relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center md:justify-end relative overflow-hidden">
       {/* Arka plan görseli */}
       <div className="absolute inset-0 w-full h-full">
         <img src={passwordBg} alt="Password BG" className="w-full h-full object-cover filter-none brightness-100 contrast-100" />
       </div>
 
-      <div className="w-full max-w-xl relative z-20 px-8 mr-32">
+      {/* Responsive padding ve margin ayarları */}
+      <div className="w-full max-w-xl relative z-20 px-4 sm:px-6 md:px-8 md:mr-32 md:max-w-xl mx-auto">
         {/* Logo ve başlık */}
         <div className="text-center mb-12">
           <div className="inline-block p-6 rounded-2xl bg-black/40 backdrop-blur-md mb-6 border border-white/10">
             <div className="relative">
-              <span className="text-5xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-red-500 animate-gradient-x">
+              <span className="text-4xl sm:text-5xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-red-500 animate-gradient-x">
                 TRINITY
               </span>
               <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 via-white/20 to-red-500/20 blur-sm"></div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold mb-6 text-gray-300 animate-fade-in">Şifreyi Sıfırla</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-300 animate-fade-in">Şifreyi Sıfırla</h1>
           <p className="text-gray-300">Yeni şifrenizi belirleyin</p>
         </div>
 
@@ -91,7 +92,7 @@ const ResetPassword: React.FC = () => {
           {/* Animasyonlu border */}
           <div className="absolute -inset-0.5 bg-gradient-to-r from-black via-red-900 to-black rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient"></div>
           
-          <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 animate-fade-in">
+          <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-4 sm:p-8 shadow-2xl border border-white/20 animate-fade-in">
             {errors.length > 0 && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 animate-fade-in">
                 <ul className="list-disc list-inside">
@@ -119,7 +120,7 @@ const ResetPassword: React.FC = () => {
                     name="token"
                     value={formData.token}
                     onChange={handleInputChange}
-                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300"
+                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300 text-base"
                     placeholder="Sıfırlama kodu"
                     required
                   />
@@ -139,7 +140,7 @@ const ResetPassword: React.FC = () => {
                     name="newPassword"
                     value={formData.newPassword}
                     onChange={handleInputChange}
-                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300"
+                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300 text-base"
                     placeholder="Yeni şifre"
                     required
                   />
@@ -159,7 +160,7 @@ const ResetPassword: React.FC = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300"
+                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all duration-300 text-base"
                     placeholder="Yeni şifre tekrar"
                     required
                   />
@@ -200,6 +201,15 @@ const ResetPassword: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* 
+        Responsive düzenler:
+        - md:justify-end ve md:mr-32 sadece masaüstünde, küçük ekranlarda mx-auto ile ortalanır.
+        - px-8 -> px-4 sm:px-6 md:px-8
+        - p-8 -> p-4 sm:p-8
+        - text-xl, text-3xl -> text-2xl sm:text-3xl
+        - text-5xl -> text-4xl sm:text-5xl
+        - max-w-xl -> md:max-w-xl w-full
+      */}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,6 +27,7 @@ public class PasswordResetToken {
 
  public PasswordResetToken() {}
 
+ 
  public PasswordResetToken(String token, User user, LocalDateTime expiryDate) {
      this.token = token;
      this.user = user;

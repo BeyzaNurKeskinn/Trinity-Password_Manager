@@ -44,6 +44,10 @@ public class User implements UserDetails {
     @Column(name = "frozen_at")
     private LocalDateTime frozenAt;
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PasswordResetToken> passwordResetTokens;
+    
     public User() {
     }
 
