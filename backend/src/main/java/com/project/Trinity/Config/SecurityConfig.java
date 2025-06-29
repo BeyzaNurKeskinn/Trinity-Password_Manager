@@ -71,7 +71,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // Kimlik doğrulaması gerektirmeyen endpoint'ler
-                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh-token", "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
+                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh-token", "/api/auth/forgot-password", "/api/auth/reset-password","/api/auth/**","/health", "/error").permitAll()
                 // /api/auth/user/** için kimlik doğrulaması gerekli
                 .requestMatchers("/api/auth/user/**").authenticated()
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
@@ -90,7 +90,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5173"); // Frontend origin
+       configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://trinity-frontend-szj7.onrender.com"));
         configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, vb.
         configuration.addAllowedHeader("*"); // Tüm başlıklar
         configuration.setAllowCredentials(true); // Çerez veya kimlik doğrulama için
