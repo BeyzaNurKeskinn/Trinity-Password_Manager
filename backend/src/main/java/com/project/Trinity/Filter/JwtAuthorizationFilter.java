@@ -38,11 +38,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         
         // /api/auth/register, /api/auth/login, /api/auth/refresh-token, /api/auth/forgot-password, /api/auth/reset-password için JWT doğrulama atla
-        if (requestURI.startsWith("/api/auth/register") ||
-            requestURI.startsWith("/api/auth/login") ||
-            requestURI.startsWith("/api/auth/refresh-token") ||
-            requestURI.startsWith("/api/auth/forgot-password") ||
-            requestURI.startsWith("/api/auth/reset-password")) {
+        if (
+             requestURI.startsWith("/health") ||
+             requestURI.startsWith("/error") ||
+             requestURI.startsWith("/api/auth/**")) {
             logger.debug("Skipping JWT validation for endpoint: {}", requestURI);
             filterChain.doFilter(request, response);
             return;
