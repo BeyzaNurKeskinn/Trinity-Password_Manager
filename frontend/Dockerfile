@@ -2,7 +2,9 @@
 FROM node:18-alpine AS builder
 
 # Çalışma dizinini ayarla
-WORKDIR /app
+WORKDIR /app   
+
+
 
 # Bağımlılıkları kopyala ve kur
 COPY package.json package-lock.json ./
