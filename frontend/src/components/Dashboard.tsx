@@ -70,70 +70,70 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-          navigate("/login");
-          return;
-        }
-        const userResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/me", {
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+      const userResponse = await axios.get("/api/user/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const { role, username } = userResponse.data;
+      localStorage.setItem("username", username);
+      const isAdminUser = role === "ADMIN";
+      setIsAdmin(isAdminUser);
+
+      if (isAdminUser) {
+        const dashboardResponse = await axios.get("/api/admin/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        const { role, username } = userResponse.data;
-        localStorage.setItem("username", username);
-        const isAdminUser = role === "ADMIN";
-        setIsAdmin(isAdminUser);
-
-        if (isAdminUser) {
-          const dashboardResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/dashboard", {
+        setData({ username, ...dashboardResponse.data });
+        const usersResponse = await axios.get("/api/admin/users", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAdminUsers(usersResponse.data.filter((u: any) => u.role === "ADMIN"));
+        const categoriesResponse = await axios.get("/api/admin/categories", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCategories(categoriesResponse.data);
+      } else {
+        const [mostViewedResponse, featuredResponse, categoriesResponse, allPasswordsResponse] = await Promise.all([
+          axios.get("/api/user/most-viewed-passwords", {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          setData({ username, ...dashboardResponse.data });
-          const usersResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/users", {
+          }),
+          axios.get("/api/user/featured-passwords", {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          setAdminUsers(usersResponse.data.filter((u: any) => u.role === "ADMIN"));
-          const categoriesResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/categories", {
+          }),
+          axios.get("/api/user/categories", {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          setCategories(categoriesResponse.data);
-        } else {
-          const [mostViewedResponse, featuredResponse, categoriesResponse, allPasswordsResponse] = await Promise.all([
-            axios.get("https://trinity-backend-szj7.onrender.com/api/user/most-viewed-passwords", {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-            axios.get("https://trinity-backend-szj7.onrender.com/api/user/featured-passwords", {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-            axios.get("https://trinity-backend-szj7.onrender.com/api/user/categories", {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-            axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-          ]);
-          
-          setData({
-            username,
-            mostViewedPasswords: mostViewedResponse.data,
-            featuredPasswords: featuredResponse.data,
-          });
-          setCategories(categoriesResponse.data);
-          setAllPasswords(allPasswordsResponse.data);
-        }
-      } catch (error) {
-        console.error("Data fetch error:", error);
-        setError("An error occurred while fetching data. Please try again later.");
-        localStorage.clear();
-        navigate("/login");
-      } finally {
-        setLoading(false);
+          }),
+          axios.get("/api/user/passwords", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+        
+        setData({
+          username,
+          mostViewedPasswords: mostViewedResponse.data,
+          featuredPasswords: featuredResponse.data,
+        });
+        setCategories(categoriesResponse.data);
+        setAllPasswords(allPasswordsResponse.data);
       }
-    };
-    fetchData();
-  }, [navigate]);
+    } catch (error) {
+      console.error("Data fetch error:", error);
+      setError("An error occurred while fetching data. Please try again later.");
+      localStorage.clear();
+      navigate("/login");
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+}, [navigate]);
 
   useEffect(() => {
     if (!loading) {
