@@ -31,7 +31,7 @@ const Sidebar: React.FC = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:8080/api/user/me", {
+        const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setIsAdmin(response.data.role === "ADMIN");

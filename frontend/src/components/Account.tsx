@@ -72,7 +72,7 @@ const Account: React.FC<AccountProps> = ({ user, updateProfilePicture, updateUse
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        "http://localhost:8080/api/user/upload-profile-picture",
+        "https://trinity-backend-szj7.onrender.com/api/user/upload-profile-picture",
         formData,
         {
           headers: {
@@ -148,7 +148,7 @@ const Account: React.FC<AccountProps> = ({ user, updateProfilePicture, updateUse
       console.log("Gönderilen veri:", requestBody);
 
       const response = await axios.put(
-        "http://localhost:8080/api/user/update",
+        "https://trinity-backend-szj7.onrender.com/api/user/update",
         requestBody,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -211,7 +211,7 @@ const Account: React.FC<AccountProps> = ({ user, updateProfilePicture, updateUse
       }
 
       await axios.post(
-        "http://localhost:8080/api/user/freeze-account",
+        "https://trinity-backend-szj7.onrender.com/api/user/freeze-account",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

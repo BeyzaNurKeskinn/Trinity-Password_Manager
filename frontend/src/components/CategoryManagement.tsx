@@ -55,7 +55,7 @@ const CategoryManagement: React.FC<CategoryManagementProps> = ({ user }) => {
         navigate("/login");
         return;
       }
-      const response = await axios.get("http://localhost:8080/api/admin/categories", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/categories", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCategories(response.data);
@@ -89,7 +89,7 @@ const CategoryManagement: React.FC<CategoryManagementProps> = ({ user }) => {
         return;
       }
       await axios.post(
-        "http://localhost:8080/api/admin/categories",
+        "https://trinity-backend-szj7.onrender.com/api/admin/categories",
         {
           name: newCategory.name.trim(),
           description: newCategory.description.trim(),
@@ -133,7 +133,7 @@ const CategoryManagement: React.FC<CategoryManagementProps> = ({ user }) => {
         return;
       }
       await axios.put(
-        `http://localhost:8080/api/admin/categories/${selectedCategory.id}`,
+        `https://trinity-backend-szj7.onrender.com/api/admin/categories/${selectedCategory.id}`,
         {
           name: selectedCategory.name.trim(),
           description: selectedCategory.description.trim(),
@@ -166,7 +166,7 @@ const CategoryManagement: React.FC<CategoryManagementProps> = ({ user }) => {
         navigate("/login");
         return;
       }
-      await axios.delete(`http://localhost:8080/api/admin/categories/${categoryToDelete}`, {
+      await axios.delete(`https://trinity-backend-szj7.onrender.com/api/admin/categories/${categoryToDelete}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowDeleteConfirmModal(false);

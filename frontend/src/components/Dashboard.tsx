@@ -77,7 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           navigate("/login");
           return;
         }
-        const userResponse = await axios.get("http://localhost:8080/api/user/me", {
+        const userResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -87,30 +87,30 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         setIsAdmin(isAdminUser);
 
         if (isAdminUser) {
-          const dashboardResponse = await axios.get("http://localhost:8080/api/admin/dashboard", {
+          const dashboardResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/dashboard", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setData({ username, ...dashboardResponse.data });
-          const usersResponse = await axios.get("http://localhost:8080/api/admin/users", {
+          const usersResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/users", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setAdminUsers(usersResponse.data.filter((u: any) => u.role === "ADMIN"));
-          const categoriesResponse = await axios.get("http://localhost:8080/api/admin/categories", {
+          const categoriesResponse = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/categories", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setCategories(categoriesResponse.data);
         } else {
           const [mostViewedResponse, featuredResponse, categoriesResponse, allPasswordsResponse] = await Promise.all([
-            axios.get("http://localhost:8080/api/user/most-viewed-passwords", {
+            axios.get("https://trinity-backend-szj7.onrender.com/api/user/most-viewed-passwords", {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            axios.get("http://localhost:8080/api/user/featured-passwords", {
+            axios.get("https://trinity-backend-szj7.onrender.com/api/user/featured-passwords", {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            axios.get("http://localhost:8080/api/user/categories", {
+            axios.get("https://trinity-backend-szj7.onrender.com/api/user/categories", {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            axios.get("http://localhost:8080/api/user/passwords", {
+            axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
               headers: { Authorization: `Bearer ${token}` },
             }),
           ]);

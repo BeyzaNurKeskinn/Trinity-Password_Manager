@@ -71,7 +71,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
           return;
         }
 
-        const response = await axios.get("http://localhost:8080/api/user/categories", {
+        const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/categories", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCategories(response.data);
@@ -94,12 +94,12 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
 
         const passedCategory = location.state?.selectedCategory as Category | null;
 
-        let url = "http://localhost:8080/api/user/passwords";
+        let url = "https://trinity-backend-szj7.onrender.com/api/user/passwords";
         if (passedCategory && passedCategory.name !== "Tümü") {
           setSelectedCategory(passedCategory);
-          url = `http://localhost:8080/api/user/passwords/by-category?category=${passedCategory.name}`;
+          url = `https://trinity-backend-szj7.onrender.com/api/user/passwords/by-category?category=${passedCategory.name}`;
         } else if (selectedCategory && selectedCategory.name !== "Tümü") {
-          url = `http://localhost:8080/api/user/passwords/by-category?category=${selectedCategory.name}`;
+          url = `https://trinity-backend-szj7.onrender.com/api/user/passwords/by-category?category=${selectedCategory.name}`;
         }
 
         const response = await axios.get(url, {
@@ -210,7 +210,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         return;
       }
 
-      await axios.post("http://localhost:8080/api/user/passwords", newPassword, {
+      await axios.post("https://trinity-backend-szj7.onrender.com/api/user/passwords", newPassword, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -218,7 +218,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       setNewPassword({ categoryId: "", title: "", username: "", password: "", description: "", status: "ACTIVE" });
       setErrors([]); // Hataları sıfırla
 
-      const response = await axios.get("http://localhost:8080/api/user/passwords", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Mapping: featured -> isFeatured
@@ -276,7 +276,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       console.log("Güncellenen veri:", updatedData);
 
       await axios.put(
-        `http://localhost:8080/api/user/passwords/${updatePasswordData.id}`,
+        `https://trinity-backend-szj7.onrender.com/api/user/passwords/${updatePasswordData.id}`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -298,7 +298,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       setVerifyCode("");
 
       // Şifreleri yeniden yükle
-      const response = await axios.get("http://localhost:8080/api/user/passwords", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Mapping: featured -> isFeatured
@@ -323,11 +323,11 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         return;
       }
 
-      await axios.delete(`http://localhost:8080/api/user/passwords/${id}`, {
+      await axios.delete(`https://trinity-backend-szj7.onrender.com/api/user/passwords/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const response = await axios.get("http://localhost:8080/api/user/passwords", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPasswords(response.data);
@@ -350,7 +350,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       }
 
       const response = await axios.post(
-        "http://localhost:8080/api/auth/user/send-verification-code",
+        "https://trinity-backend-szj7.onrender.com/api/auth/user/send-verification-code",
         { context },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -393,7 +393,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       }
 
       await axios.post(
-        "http://localhost:8080/api/auth/user/verify-code",
+        "https://trinity-backend-szj7.onrender.com/api/auth/user/verify-code",
         { code: verifyCode },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -404,7 +404,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       if (currentPasswordId !== null) {
         console.log("Şifre alma isteği yapılıyor, ID:", currentPasswordId);
         const passwordResponse = await axios.get(
-          `http://localhost:8080/api/auth/user/password/${currentPasswordId}`,
+          `https://trinity-backend-szj7.onrender.com/api/auth/user/password/${currentPasswordId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

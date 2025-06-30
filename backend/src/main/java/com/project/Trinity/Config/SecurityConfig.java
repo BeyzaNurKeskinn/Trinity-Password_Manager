@@ -90,7 +90,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-       configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://trinity-frontend-szj7.onrender.com"));
+       configuration.setAllowedOrigins(Arrays.asList("https://trinity-frontend-szj7.onrender.com"));
         configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, vb.
         configuration.addAllowedHeader("*"); // Tüm başlıklar
         configuration.setAllowCredentials(true); // Çerez veya kimlik doğrulama için

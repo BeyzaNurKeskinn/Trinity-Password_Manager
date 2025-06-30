@@ -58,7 +58,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ user }) => {
         return;
       }
 
-      const response = await axios.get("http://localhost:8080/api/admin/users", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(response.data);
@@ -112,7 +112,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ user }) => {
       }
 
       await axios.post(
-        "http://localhost:8080/api/admin/users",
+        "https://trinity-backend-szj7.onrender.com/api/admin/users",
         {
           username: newUser.username.trim(),
           email: newUser.email.trim(),
@@ -179,7 +179,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ user }) => {
       }
 
       await axios.put(
-        `http://localhost:8080/api/admin/users/${selectedUser.id}`,
+        `https://trinity-backend-szj7.onrender.com/api/admin/users/${selectedUser.id}`,
         {
           username: selectedUser.username.trim(),
           email: selectedUser.email.trim(),
@@ -228,7 +228,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ user }) => {
       }
 
       await axios.put(
-        `http://localhost:8080/api/admin/users/${userToDeactivate}`,
+        `https://trinity-backend-szj7.onrender.com/api/admin/users/${userToDeactivate}`,
         {
           username: user.username,
           email: user.email,
