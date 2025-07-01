@@ -14,17 +14,14 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Nginx aşaması
-FROM nginx:alpine
+FROM node:18-alpine
+WORKDIR /app
 
-# Build dosyalarını Nginx'e kopyala
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist ./dist
 
-# Nginx yapılandırmasını kopyala
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN npm install -g serve
 
 # 80 portunu aç
 EXPOSE 10000
 
-# Nginx'i başlat
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "dist", "-l", "10000"]
