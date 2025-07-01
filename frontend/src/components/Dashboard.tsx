@@ -77,6 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         navigate("/login");
         return;
       }
+      
       const userResponse = await axios.get("/api/user/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
