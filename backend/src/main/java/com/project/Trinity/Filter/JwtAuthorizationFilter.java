@@ -41,7 +41,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if (
              requestURI.startsWith("/health") ||
              requestURI.startsWith("/error") ||
-             requestURI.startsWith("/api/auth/**")
+             requestURI.startsWith("/api/auth/**") ||
               requestURI.startsWith("/api/auth/login")) {
             logger.debug("Skipping JWT validation for endpoint: {}", requestURI);
             filterChain.doFilter(request, response);
