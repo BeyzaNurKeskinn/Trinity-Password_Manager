@@ -88,7 +88,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-       configuration.setAllowedOrigins(Arrays.asList("https://trinity-password-manager.onrender.com"));
+        //configuration.setAllowedOrigins(Arrays.asList("https://trinity-password-manager.onrender.com"));
+        configuration.setAllowedOrigins("*");
         configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, vb.
         configuration.addAllowedHeader("*"); // Tüm başlıklar
         configuration.setAllowCredentials(true); // Çerez veya kimlik doğrulama için

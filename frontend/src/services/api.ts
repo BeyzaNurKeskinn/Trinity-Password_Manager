@@ -9,7 +9,7 @@ export interface UserInfoResponse {
 }
 
 const apiClient = axios.create({
-  baseURL: "/api",
+baseURL: "https://trinity-backend-szj7.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
