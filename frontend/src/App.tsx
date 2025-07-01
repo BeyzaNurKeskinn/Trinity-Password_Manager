@@ -54,7 +54,7 @@ const AppContent: React.FC = () => {
       const token = localStorage.getItem("accessToken");
       if (token && !user.id) {
         try {
-          const response = await axios.get("http://trinity-password-manager.onrender.com//api/user/me", {
+          const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/me", {
             headers: { Authorization: `Bearer ${token}` },
           });
           updateUser({
