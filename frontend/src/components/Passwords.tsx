@@ -327,7 +327,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/categories", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPasswords(response.data);
@@ -654,7 +654,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
                           }
                           const newIsFeatured = !password.isFeatured;
                           const response = await axios.put(
-                            `http://localhost:8080/api/user/passwords/${password.id}/toggle-featured`,
+                            `https://trinity-backend-szj7.onrender.com/api/user/passwords/${password.id}/toggle-featured`,
                             { isFeatured: newIsFeatured },
                             { headers: { Authorization: `Bearer ${token}` } }
                           );
