@@ -89,7 +89,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         //configuration.setAllowedOrigins(Arrays.asList("https://trinity-password-manager.onrender.com"));
-        configuration.setAllowedOrigins("*");
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://trinity-password-manager.onrender.com"));
         configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, vb.
         configuration.addAllowedHeader("*"); // Tüm başlıklar
         configuration.setAllowCredentials(true); // Çerez veya kimlik doğrulama için
