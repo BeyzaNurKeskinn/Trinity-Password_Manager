@@ -72,12 +72,6 @@ public class PasswordService {
     }
 
     @Transactional(readOnly = true)
-    public List<Password> getUserPasswords() {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return passwordRepository.findByCreatedByAndStatus(currentUser, Status.ACTIVE);
-    }
-
-    @Transactional(readOnly = true)
     public List<Password> getPasswordsByCategory(String categoryName) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return passwordRepository.findByUserAndCategoryNameAndStatus(currentUser, categoryName, Status.ACTIVE);
@@ -161,6 +155,14 @@ public class PasswordService {
         logger.info("Kaydedilen şifre: id={}, isFeatured={}", savedPassword.getId(), savedPassword.getIsFeatured());
         return savedPassword;
     }
+    @Transactional(readOnly = true)
+public List<PasswordResponse> getUserPasswordsAsResponse() {
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return passwordRepository.findByCreatedByAndStatus(currentUser, Status.ACTIVE)
+            .stream()
+            .map(PasswordResponse::new)
+            .collect(Collectors.toList());
+}
 
     public List<Password> getMostViewedPasswordsByUser(User user, int limit) {
         return passwordRepository.findByUserAndStatusOrderByViewCountDesc(user, Status.ACTIVE)

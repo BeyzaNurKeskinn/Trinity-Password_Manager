@@ -43,14 +43,11 @@ public class PasswordController {
         return new ResponseEntity<>(new PasswordResponse(password), HttpStatus.OK);
     }
 
-    @GetMapping("/passwords")
-    public ResponseEntity<List<PasswordResponse>> getUserPasswords() {
-        List<PasswordResponse> passwords = passwordService.getUserPasswords()
-                .stream()
-                .map(PasswordResponse::new)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(passwords);
-    }
+ @GetMapping("/passwords")
+public ResponseEntity<List<PasswordResponse>> getUserPasswords() {
+    List<PasswordResponse> passwords = passwordService.getUserPasswordsAsResponse();
+    return ResponseEntity.ok(passwords);
+}
 
     @GetMapping("/passwords/by-category")
     public ResponseEntity<List<PasswordResponse>> getPasswordsByCategory(@RequestParam String category) {

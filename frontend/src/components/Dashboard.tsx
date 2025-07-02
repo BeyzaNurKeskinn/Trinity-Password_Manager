@@ -267,14 +267,14 @@ return (
           ) : (
             <div className="space-y-6 sm:space-y-8 md:space-y-8">
               <div>
-                <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-gray-900 tracking-tight">Hoşgeldin, {data.username} !</h1>
-                <p className="text-sm sm:text-base md:text-gray-600 mt-3 sm:mt-4 md:mt-4">TRİNİTY ile şifrelerinizi güvenli bir şekilde yönetin.</p>
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-700 tracking-tight">Hoşgeldin, {data.username} !</h1>
+                <p className="text-xs sm:text-base md:text-gray-500 mt-3 sm:mt-4 md:mt-4">TRİNİTY ile şifrelerinizi güvenli bir şekilde yönetin.</p>
                 {!isAdmin && allPasswords.length === 0 && (
                   <div className="mt-3 sm:mt-4 md:mt-4 animate-fade-in">
                     <span className="text-sm sm:text-base md:text-base text-gray-700">
-                      Henüz hiç şifreniz yok.{' '}
+                      
                       <span
-                        className="text-red-500 underline cursor-pointer hover:text-red-700 transition font-bold"
+                        className=" text-red-500 underline cursor-pointer hover:text-red-700 transition font-bold"
                         onClick={() => navigate('/user/passwords')}
                       >
                         Hadi şifre oluşturalım!
@@ -303,7 +303,7 @@ return (
                         </button>
                       ))
                   ) : (
-                    <p className="text-gray-500 col-span-2 text-xs sm:text-sm md:text-base">No categories created yet.</p>
+                    <p className="text-gray-500 col-span-2 text-xs sm:text-sm md:text-base"> Henüz hiç şifreniz yok.</p>
                   )}
                 </div>
               </div>

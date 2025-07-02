@@ -231,6 +231,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
       const uniqueCategoryIds = [...new Set(mappedPasswords.map((p: Password) => p.categoryId))];
       setUserCategories(categories.filter((cat) => uniqueCategoryIds.includes(cat.id)));
     } catch (err: any) {
+      console.error("Hata detayları:", err.response ? err.response.data : err.message);
       const backendMessage = err.response?.data?.message || "Şifre eklenirken bir hata oluştu.";
       if (err.response?.status === 400) {
         if (backendMessage.includes("Kategori")) {
@@ -471,19 +472,19 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 items-center justify-center">
-        <p className="text-red-600">{error}</p>
-        <button
-          onClick={() => setError(null)}
-          className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
-        >
-          Tekrar Dene
-        </button>
-      </div>
-    );
-  }
+if (error) {
+  return (
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 items-center justify-center">
+      <p className="text-red-600">{error}</p>
+      <button
+        onClick={() => window.location.reload()} // Sayfayı yenilemeyi dene
+        className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+      >
+        Yeniden Dene
+      </button>
+    </div>
+  );
+}
 
     return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-100">
@@ -493,7 +494,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         <div>
           <Sidebar />
         </div>
-        <div className="w-full ml-14 lg:ml-64 p-2 sm:p-4 sm:ml-20 md:p-6 mt-4 sm:mt-6 md:mt-8">
+        <div className="w-full ml-14 lg:ml-64 p-2 sm:p-4 sm:ml-20 md:p-6 mt-2 sm:mt-6 md:mt-8">
           <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-900 animate-fade-in">
             Şifrelerim
           </h1>
@@ -693,7 +694,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
           {showAddModal && (
             <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
               <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
-                <h2 className="text-xl font-bold mb-4">Yeni Şifre Ekle</h2>
+                <h2 className="text-xs font-bold mb-4">Yeni Şifre Ekle</h2>
                 {errors.length > 0 && (
                   <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
                     <ul className="list-disc list-inside">
