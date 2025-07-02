@@ -328,7 +328,7 @@ const Passwords: React.FC<PasswordsProps> = ({ user }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/categories", {
+      const response = await axios.get("https://trinity-backend-szj7.onrender.com/api/user/passwords", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPasswords(response.data);
