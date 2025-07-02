@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.project.Trinity.DTO.PasswordResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -155,11 +156,13 @@ public class PasswordService {
         logger.info("Kaydedilen şifre: id={}, isFeatured={}", savedPassword.getId(), savedPassword.getIsFeatured());
         return savedPassword;
     }
-    @Transactional(readOnly = true)
+   @Transactional(readOnly = true)
 public List<PasswordResponse> getUserPasswordsAsResponse() {
     User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return passwordRepository.findByCreatedByAndStatus(currentUser, Status.ACTIVE)
-            .stream()
+    logger.debug("Kullanıcı için şifreler alınıyor: userId={}", currentUser.getId());
+    List<Password> passwords = passwordRepository.findByCreatedByAndStatus(currentUser, Status.ACTIVE);
+    logger.debug("Toplam {} şifre bulundu", passwords.size());
+    return passwords.stream()
             .map(PasswordResponse::new)
             .collect(Collectors.toList());
 }

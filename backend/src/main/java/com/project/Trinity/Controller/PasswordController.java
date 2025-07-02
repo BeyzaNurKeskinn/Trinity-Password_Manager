@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import com.project.Trinity.DTO.PasswordResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -143,27 +144,4 @@ public ResponseEntity<List<PasswordResponse>> getUserPasswords() {
         private String status = "ACTIVE";
     }
 
-    @Data
-    @EqualsAndHashCode(callSuper = false)
-    static class PasswordResponse {
-        private Long id;
-        private Long categoryId;
-        private String categoryName;
-        private String title;
-        private String username;
-        private String description;
-        private String status;
-        private boolean isFeatured;
-
-        public PasswordResponse(Password password) {
-            this.id = password.getId();
-            this.categoryId = password.getCategory().getId();
-            this.categoryName = password.getCategory().getName();
-            this.title = password.getTitle();
-            this.username = password.getUsername();
-            this.description = password.getDescription();
-            this.status = password.getStatus().getDisplayName();
-            this.isFeatured = password.getIsFeatured(); 
-        }
-    }
 }
