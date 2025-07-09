@@ -114,7 +114,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
               headers: { Authorization: `Bearer ${token}` },
             }),
           ]);
-          
+
           setData({
             username,
             mostViewedPasswords: mostViewedResponse.data,
@@ -180,7 +180,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     );
   }
 
-return (
+  return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 w-screen min-w-full overflow-x-hidden box-border text-gray-800 font-sans">
       <Navbar username={user.username} profilePicture={user.profilePicture} />
       <div className="flex flex-1 pt-2">
@@ -272,7 +272,7 @@ return (
                 {!isAdmin && allPasswords.length === 0 && (
                   <div className="mt-3 sm:mt-4 md:mt-4 animate-fade-in">
                     <span className="text-sm sm:text-base md:text-base text-gray-700">
-                      
+
                       <span
                         className=" text-red-500 underline cursor-pointer hover:text-red-700 transition font-bold"
                         onClick={() => navigate('/user/passwords')}
@@ -307,31 +307,34 @@ return (
                   )}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:flex md:flex-row md:gap-6 md:flex-wrap">
-                <div className="w-full bg-slate-800 p-3 sm:p-4 md:p-6 md:min-w-[280px] rounded-2xl shadow border border-gray-200 flex flex-col">
-                  <div className="flex items-center mb-2 sm:mb-3 md:mb-4">
-                    <StarIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-yellow-500 mr-1.5 sm:mr-2" />
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">Öne Çıkan Şifreler</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-8">
+                {/* Öne Çıkan Şifreler */}
+                <div className="w-full bg-slate-800 p-3 sm:p-4 md:p-6 rounded-2xl shadow border border-gray-200 flex flex-col">
+                  <div className="flex items-center mb-2 sm:mb-3 md:mb-5">
+                    <StarIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 text-yellow-500 mr-1.5 sm:mr-2" />
+                    <h3 className="text-lg sm:text-xl md:text-xl font-bold text-white tracking-tight">Öne Çıkan Şifreler</h3>
                   </div>
-                  <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">
-                    {(data.featuredPasswords || []).slice(0,2).map(pw => (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-3">
+                    {(data.featuredPasswords || []).slice(0, 4).map(pw => (
                       <div
                         key={pw.id}
-                        className="relative bg-gray-50 border border-gray-100 rounded-xl shadow-sm p-2 sm:p-3 md:p-4 flex flex-col hover:shadow-md transition group hover:bg-gray-100"
+                        className="relative bg-gray-50 border border-gray-100 rounded-xl shadow-sm p-2 sm:p-2.5 md:p-2 flex flex-col hover:shadow-md transition group hover:bg-gray-100  md:max-h-32"
                       >
                         <div className="flex items-center mb-1">
-                          <span className="inline-block bg-yellow-100 text-yellow-700 text-[9px] sm:text-[10px] md:text-xs font-semibold px-1 sm:px-1.5 md:px-2 py-0.5 rounded-full mr-1 sm:mr-1.5 md:mr-2">Öne Çıkan</span>
-                          <span className="font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate">{pw.title}</span>
+                          <span className="inline-block bg-yellow-100 text-yellow-700 text-[8px] sm:text-[9px] md:text-xs font-semibold px-1 sm:px-1.5 py-0.5 rounded-full mr-1">Öne Çıkan</span>
+                          <span className="font-semibold text-[10px] sm:text-xs md:text-xs text-gray-900 truncate">{pw.title}</span>
                         </div>
-                        <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs text-gray-500 mb-1">
-                          <FolderIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 mr-0.5 sm:mr-1 text-gray-400" /> {pw.categoryName}
+                        <div className="flex items-center text-[8px] sm:text-[9px] md:text-xs text-gray-500 mb-1">
+                          <FolderIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 mr-0.5 text-gray-400" />
+                          <span className="truncate">{pw.categoryName}</span>
                         </div>
-                        <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs text-gray-500 mb-1">
-                          <span className="font-bold mr-0.5 sm:mr-1">Kullanıcı:</span> {pw.username}
+                        <div className="flex items-center text-[8px] sm:text-[9px] md:text-xs text-gray-500 mb-1">
+                          <span className="font-bold mr-0.5">Kull.:</span>
+                          <span className="truncate">{pw.username}</span>
                         </div>
-                        <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-700 mb-1 md:mb-2 line-clamp-2">{pw.description}</div>
+                        <div className="text-[8px] sm:text-[9px] md:text-xs text-gray-700 mb-1 line-clamp-1">{pw.description}</div>
                         <button
-                          className="mt-auto text-[9px] sm:text-[10px] md:text-xs text-blue-600 hover:underline font-semibold"
+                          className="mt-auto text-[8px] sm:text-[9px] md:text-xs text-blue-600 hover:underline font-semibold"
                           onClick={() => navigate("/user/passwords", { state: { selectedPassword: pw } })}
                         >
                           Detaya Git
@@ -339,34 +342,38 @@ return (
                       </div>
                     ))}
                     {(!data.featuredPasswords || data.featuredPasswords.length === 0) && (
-                      <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 italic">Öne çıkan şifre yok.</div>
+                      <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 italic col-span-2">Öne çıkan şifre yok.</div>
                     )}
                   </div>
                 </div>
-                <div className="w-full bg-slate-800 p-3 sm:p-4 md:p-6 md:min-w-[280px] rounded-2xl shadow border border-gray-200 flex flex-col">
-                  <div className="flex items-center mb-2 sm:mb-3 md:mb-4">
-                    <EyeIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-blue-500 mr-1.5 sm:mr-2" />
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">Sık Kullanılan Şifreler</h3>
+
+                {/* Sık Kullanılan Şifreler */}
+                <div className="w-full bg-slate-800 p-3 sm:p-4 md:p-6 rounded-2xl shadow border border-gray-200 flex flex-col">
+                  <div className="flex items-center mb-2 sm:mb-3 md:mb-5">
+                    <EyeIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 text-blue-500 mr-1.5 sm:mr-2" />
+                    <h3 className="text-lg sm:text-xl md:text-xl font-bold text-white tracking-tight">Sık Kullanılan Şifreler</h3>
                   </div>
-                  <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">
-                    {(data.mostViewedPasswords || []).slice(0,2).map(pw => (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-3">
+                    {(data.mostViewedPasswords || []).slice(0, 4).map(pw => (
                       <div
                         key={pw.id}
-                        className="relative bg-gray-50 border border-gray-100 rounded-xl shadow-sm p-2 sm:p-3 md:p-4 flex flex-col hover:shadow-md transition group hover:bg-gray-100"
+                        className="relative bg-gray-50 border border-gray-100 rounded-xl shadow-sm p-2 sm:p-2.5 md:p-2 flex flex-col hover:shadow-md transition group hover:bg-gray-100  md:max-h-32"
                       >
                         <div className="flex items-center mb-1">
-                          <span className="inline-block bg-blue-100 text-blue-700 text-[9px] sm:text-[10px] md:text-xs font-semibold px-1 sm:px-1.5 md:px-2 py-0.5 rounded-full mr-1 sm:mr-1.5 md:mr-2">Sık Kullanılan</span>
-                          <span className="font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate">{pw.title}</span>
+                          <span className="inline-block bg-blue-100 text-blue-700 text-[8px] sm:text-[9px] md:text-xs font-semibold px-1 sm:px-1.5 py-0.5 rounded-full mr-1">Sık Kullanılan</span>
+                          <span className="font-semibold text-[10px] sm:text-xs md:text-xs text-gray-900 truncate">{pw.title}</span>
                         </div>
-                        <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs text-gray-500 mb-1">
-                          <FolderIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 mr-0.5 sm:mr-1 text-gray-400" /> {pw.categoryName}
+                        <div className="flex items-center text-[8px] sm:text-[9px] md:text-xs text-gray-500 mb-1">
+                          <FolderIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 mr-0.5 text-gray-400" />
+                          <span className="truncate">{pw.categoryName}</span>
                         </div>
-                        <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs text-gray-500 mb-1">
-                          <span className="font-bold mr-0.5 sm:mr-1">Kullanıcı:</span> {pw.username}
+                        <div className="flex items-center text-[8px] sm:text-[9px] md:text-xs text-gray-500 mb-1">
+                          <span className="font-bold mr-0.5">Kull.:</span>
+                          <span className="truncate">{pw.username}</span>
                         </div>
-                        <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-700 mb-1 md:mb-2 line-clamp-2">{pw.description}</div>
+                        <div className="text-[8px] sm:text-[9px] md:text-xs text-gray-700 mb-1 line-clamp-1">{pw.description}</div>
                         <button
-                          className="mt-auto text-[9px] sm:text-[10px] md:text-xs text-blue-600 hover:underline font-semibold"
+                          className="mt-auto text-[8px] sm:text-[9px] md:text-xs text-blue-600 hover:underline font-semibold"
                           onClick={() => navigate("/user/passwords", { state: { selectedPassword: pw } })}
                         >
                           Detaya Git
@@ -374,7 +381,7 @@ return (
                       </div>
                     ))}
                     {(!data.mostViewedPasswords || data.mostViewedPasswords.length === 0) && (
-                      <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 italic">Sık kullanılan şifre yok.</div>
+                      <div className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 italic col-span-2">Sık kullanılan şifre yok.</div>
                     )}
                   </div>
                 </div>
