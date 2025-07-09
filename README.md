@@ -1,5 +1,5 @@
 
-Trinity Password Manager
+## Trinity Password Manager
 
 Trinity Password Manager is a modern web application designed to securely store, categorize, and manage user passwords. 
 With a user-friendly interface and robust security features, it provides a comprehensive solution for both individual users and administrators.
@@ -9,66 +9,66 @@ Features
 
 User Management:
 
---Sign-up, login, and password reset (via email or phone verification code).
+    --Sign-up, login, and password reset (via email or phone verification code).
 
---Support for social media login with Google and Facebook.
+    --Support for social media login with Google and Facebook.
 
---Profile picture upload and user information updates.
+    --Profile picture upload and user information updates.
 
---Account deactivation/freezing.
+    --Account deactivation/freezing.
 
 
 Password Management:
 
---Add, update, delete, and categorize passwords.
+    --Add, update, delete, and categorize passwords.
 
---Search and filter passwords by category.
+    --Search and filter passwords by category.
 
---Mark and highlight featured passwords.
+    --Mark and highlight featured passwords.
 
---Verification code required via email to view passwords.
+    --Verification code required via email to view passwords.
 
 
 Category Management (Admin):
 
---Create, update, and delete categories.
+    --Create, update, and delete categories.
 
---Color-coded categories for visual distinction.
+    --Color-coded categories for visual distinction.
 
 
 User Management (Admin):
 
---Add, update, and deactivate users.
+    --Add, update, and deactivate users.
 
---Assign user roles (USER/ADMIN).
+    --Assign user roles (USER/ADMIN).
 
 
 Dashboard:
 
---Matrix-themed interface displaying recently viewed and featured passwords for users.
+    --Matrix-themed interface displaying recently viewed and featured passwords for users.
 
---System statistics and recent activities for admins.
+    --System statistics and recent activities for admins.
 
 
 Security:
 
---JWT-based authentication.
+    --JWT-based authentication.
 
---Passwords stored encrypted using AES/BCrypt.
+    --Passwords stored encrypted using AES/BCrypt.
 
---HttpOnly cookies for enhanced security against XSS attacks.
+    --HttpOnly cookies for enhanced security against XSS attacks.
 
 
 Responsive Design:
 
---TailwindCSS-based interface compatible with mobile, tablet, and desktop devices.
+    --TailwindCSS-based interface compatible with mobile, tablet, and desktop devices.
 
---Matrix-themed neon green/blue color palette with VT323 font.
+    --Matrix-themed neon green/blue color palette with VT323 font.
 
 
 Docker Support:
 
---Easy deployment with Docker Compose for frontend, backend, and PostgreSQL.
+    --Easy deployment with Docker Compose for frontend, backend, and PostgreSQL.
 
 
 
@@ -203,43 +203,43 @@ User Operations
 
 Login/Sign-Up:
 
-Navigate to /login or /register to create an account or log in.
+    Navigate to /login or /register to create an account or log in.
 
-Use Google or Facebook for quick login.
+    Use Google or Facebook for quick login.
 
 
 Password Management:
 
-Go to /user/passwords to add, update, delete, or categorize passwords.
+    Go to /user/passwords to add, update, delete, or categorize passwords.
 
-View passwords by entering the verification code sent via email.
+    View passwords by entering the verification code sent via email.
 
-Filter passwords by title, username, or description using the search bar.
+    Filter passwords by title, username, or description using the search bar.
 
 
 Account Management:
 
-Visit /user/account to upload a profile picture, update user information, or deactivate your account.
+    Visit /user/account to upload a profile picture, update user information, or deactivate your account.
 
 
 
 Admin Operations
 
-User Management:
+    User Management:
 
-Access /admin/users to add, update, or deactivate users.
+    Access /admin/users to add, update, or deactivate users.
 
 
 Category Management:
 
-Go to /admin/categories to create, edit, or delete categories.
+    Go to /admin/categories to create, edit, or delete categories.
 
 
 Dashboard:
 
-View recent activities and featured passwords at /admin/dashboard or /user/dashboard.
+    View recent activities and featured passwords at /admin/dashboard or /user/dashboard.
 
-The Matrix-themed dashboard includes clickable "Frequently Viewed Passwords" that redirect to /passwords.
+    The Matrix-themed dashboard includes clickable "Frequently Viewed Passwords" that redirect to /passwords.
 
 
 API Endpoints (Examples)
@@ -265,62 +265,62 @@ Development Notes
 
 Frontend:
 
-Vite provides a fast development environment.
+    Vite provides a fast development environment.
 
-TailwindCSS implements a Matrix-themed neon green/blue color scheme with VT323 font.
+    TailwindCSS implements a Matrix-themed neon green/blue color scheme with VT323 font.
 
-Responsive design: Sidebar is hidden on mobile, and cards are displayed in a single column.
+    Responsive design: Sidebar is hidden on mobile, and cards are displayed in a single column.
 
-ESLint and TypeScript ensure code quality.
+    ESLint and TypeScript ensure code quality.
 
 
 Backend:
 
-Spring Boot powers the RESTful API.
+    Spring Boot powers the RESTful API.
 
-Passwords are encrypted with AES/BCrypt.
+    Passwords are encrypted with AES/BCrypt.
 
-HttpOnly cookies enhance JWT security (XSS protection).
+    HttpOnly cookies enhance JWT security (XSS protection).
 
 
 Docker:
 
-trinity-network enables communication between services.
+    trinity-network enables communication between services.
 
-PostgreSQL includes health checks for reliable startup.
+    PostgreSQL includes health checks for reliable startup.
 
 
 Responsive Design:
 
-Dashboard displays password cards in a 2x2 grid on desktop and a single column on mobile.
+    Dashboard displays password cards in a 2x2 grid on desktop and a single column on mobile.
 
-User management and password lists adapt to various screen sizes.
+    User management and password lists adapt to various screen sizes.
 
 
 Troubleshooting
 
 Login/Sign-Up Errors:
 
-Verify MAIL_USERNAME and MAIL_PASSWORD in the .env file.
+    Verify MAIL_USERNAME and MAIL_PASSWORD in the .env file.
 
-Check the spam/junk folder for email verification codes.
+    Check the spam/junk folder for email verification codes.
 
 
 Password Viewing Issues:
 
-If the verification code is not received, inspect backend logs (backend-1 container).
+    If the verification code is not received, inspect backend logs (backend-1 container).
 
 
 Docker Issues:
 
-Check for port conflicts (5432, 8080, 5173) using docker ps.
+    Check for port conflicts (5432, 8080, 5173) using docker ps.
 
-Verify DB_USERNAME, DB_PASSWORD, and DB_HOST in the .env file for database connection issues.
+    Verify DB_USERNAME, DB_PASSWORD, and DB_HOST in the .env file for database connection issues.
 
 
 Deactivate Button Issues:
 
-Ensure the backend endpoint (PUT /api/admin/users/{id}) is correctly configured in UserManagement.tsx.
+    Ensure the backend endpoint (PUT /api/admin/users/{id}) is correctly configured in UserManagement.tsx.
 
 
 
@@ -338,32 +338,32 @@ Push Docker Images to Docker Hub:
 
 Deploy on Render:
 
-Create a new Web Service on Render.
+    Create a new Web Service on Render.
 
-Link the Docker Hub images and upload .env variables.
+    Link the Docker Hub images and upload .env variables.
 
-Set up a managed PostgreSQL database on Render and update .env with connection details.
+    Set up a managed PostgreSQL database on Render and update .env with connection details.
 
 
 Test:
 
-Verify the deployment at https://<your-render-url>.
+    Verify the deployment at https://<your-render-url>.
 
 
 
 Contributing
 
-Fork the repository.
+    Fork the repository.
 
-Create a new branch: git checkout -b feature/your-feature.
+    Create a new branch: git checkout -b feature/your-feature.
 
-Make your changes and commit: git commit -m "Feature: ..."
+    Make your changes and commit: git commit -m "Feature: ..."
 
-Push to the branch: git push origin feature/your-feature.
+    Push to the branch: git push origin feature/your-feature.
 
-Open a Pull Request.
+    Open a Pull Request.
 
 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+    This project is licensed under the MIT License. See the LICENSE file for details.
 Contact
 For questions, email beyzanurhorasan89@gmail.com or open an issue on GitHub.
