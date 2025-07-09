@@ -59,13 +59,7 @@ public class UserController {
         );
         return ResponseEntity.ok(response);
     }
-    @DeleteMapping("/admin/users/{id}")
-public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Kullanıcı bulunamadı: " + id));
-    userRepository.delete(user);
-    return ResponseEntity.noContent().build();
-}
+
 
     @GetMapping("/admin/users")
     @PreAuthorize("hasRole('ADMIN')")
