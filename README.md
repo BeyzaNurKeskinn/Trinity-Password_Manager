@@ -2,6 +2,7 @@
 ## Trinity Password Manager
 
 To see the project live: https://trinity-password-manager.onrender.com  
+In case of any issues, photos of the project are below.
 
 Trinity Password Manager is a modern web application designed to securely store, categorize, and manage user passwords. 
 With a user-friendly interface and robust security features, it provides a comprehensive solution for both individual users and administrators.
