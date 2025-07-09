@@ -242,7 +242,7 @@ Dashboard:
 
 API Endpoints (Examples)
 
-The backend runs at https://trinity-backend-szj7.onrender.com/api. 
+The backend runs at https://trinity-backend-<id>.onrender.com/api. 
 
 Example endpoints:
 
