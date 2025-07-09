@@ -1,6 +1,8 @@
 
 ## Trinity Password Manager
 
+To see the project live: https://trinity-password-manager.onrender.com  
+
 Trinity Password Manager is a modern web application designed to securely store, categorize, and manage user passwords. 
 With a user-friendly interface and robust security features, it provides a comprehensive solution for both individual users and administrators.
 The project is built with a React and TypeScript-based frontend, a Spring Boot-based backend, and a PostgreSQL database, with Docker support for easy deployment.
