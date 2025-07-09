@@ -11,8 +11,6 @@ User Management:
 
     --Sign-up, login, and password reset (via email or phone verification code).
 
-    --Support for social media login with Google and Facebook.
-
     --Profile picture upload and user information updates.
 
     --Account deactivation/freezing.
